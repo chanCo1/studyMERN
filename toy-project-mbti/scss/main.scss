@@ -12,6 +12,19 @@
 #qna {
   display: none;
 
+  .status {
+    height: 20px;
+    width: 80%;
+    background-color: #fff;
+    border-radius: 20px;
+
+    .statusBar {
+      height: 100%;
+      background-color: rgba(223, 105, 124, 0.855);
+      border-radius: 20px;
+    }
+  }
+
   .qBox {
     background-color: whitesmoke;
     text-align: center;
@@ -36,32 +49,76 @@
   }
 }
 
+#result {
+  display: none;
+  background-color: whitesmoke;
+  width: 80%;
+  text-align: center;
+  border-radius: 20px;
+
+  .resultName {
+    font-size: 25px;
+  }
+
+  .resultDesc {
+    font-size: 20px;
+  }
+
+  .kakao {
+    color: #fff;
+    background-color: #fee500;
+    font-size: 20px;
+    border: none;
+    border-radius: 20px;
+    &:hover {
+      background-color: whitesmoke;
+      color: #fee500;
+    }
+  }
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @-webkit-keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .fadeIn {
   animation: fadeIn;
-  animation-duration: .5s;
+  animation-duration: 0.5s;
 }
 
 .fadeOut {
   animation: fadeOut;
-  animation-duration: .5s;
+  animation-duration: 0.5s;
 }
