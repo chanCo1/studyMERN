@@ -4,6 +4,7 @@ const result = document.querySelector('#result');
 const endPoint = 12;
 const select = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+
 const calcResult = () => {
   const result = select.indexOf(Math.max(...select));
   return result;
