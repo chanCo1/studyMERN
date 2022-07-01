@@ -1,25 +1,29 @@
 import React, { useCallback, useState } from 'react';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+
+import Heading from './components/Heading';
+import List from './components/List';
+import Upload from './components/Upload';
 
 function App() {
 
-  const [content, setContent] = useState('');
-
-  const onSubmit = (e) => {
-    alert(content);
-    setContent('');
-  }
-
-  const onChange = (e) => {
-    e.preventDefault();
-    setContent(e.currentTarget.value);
-  }
+  const [contentList, setContentList] = useState([]);
 
   return (
-    <div className="App">
-      <input type='text' value={content} onChange={onChange} />
-      <button onClick={onSubmit}>ㅋ</button>
-    </div>
+    <>
+      <Heading />
+
+      <Routes>
+        <Route path='/' exact />
+        <Route path='/list' element={
+          <List contentList={contentList} setContentList={setContentList} />
+          } 
+        />
+        <Route path='/upload' element={
+          <Upload contentList={contentList} setContentList={setContentList} />} 
+        />
+      </Routes>
+    </>
   );
 }
 
