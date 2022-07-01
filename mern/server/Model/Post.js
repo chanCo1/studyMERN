@@ -5,6 +5,6 @@ const postSchema = new mongoose.Schema({
   content: String,
 }, { collection: 'posts' });
 
-const post = mongoose.model('post', postSchema);
+const Post = mongoose.model('post', postSchema);
 
-export { post };
+export { Post };

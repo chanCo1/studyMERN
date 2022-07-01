@@ -1,7 +1,7 @@
 import express from 'express';
 import path, { resolve } from 'path';
 import mongoose from 'mongoose';
-import { post } from './Model/Post.js';
+import { Post } from './Model/Post.js';
 
 const app = express();
 const port = 5000;
@@ -35,16 +35,31 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(resolve(), '../client/build'));
 });
 
+/** submit */
 app.post('/api/post/submit', (req, res, next) => {
   const temp = req.body;
   console.log(temp);
 
-  const CommunityPost = new post(temp);
-  CommunityPost.save()
-    .then(() => {
+  const CommunityPost = new Post(temp);
+
+  (async () => {
+    try {
+      await CommunityPost.save();
       res.status(200).json({ success: true });
-    })
-    .catch((e) => {
+    } catch (e) {
       res.status(400).json({ success: false });
-    });
+    }
+  })();
+});
+
+/** list */
+app.post('/api/post/list', (req, res, next) => {
+  (async () => {
+    try {
+      const response = await Post.find().exec();
+      res.status(200).json({ success: true, postList: response });
+    } catch (e) {
+      res.status(400).json({ success: false });
+    }
+  })();
 });

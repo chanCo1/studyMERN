@@ -88,7 +88,7 @@ const Upload = ({ contentList, setContentList }) => {
     e.preventDefault();
     if(!title || !content) {
       return alert('모든 항목을 채워주세요!');
-    }
+    };
 
     let body = {
       title: title,
@@ -102,7 +102,7 @@ const Upload = ({ contentList, setContentList }) => {
 
         if(response.data.success) {
           alert('글 작성이 완료 되었습니다.');
-          navigate('../');
+          navigate('/');
         } else {
           alert('글 작성에 실패 하였습니다.');
         }

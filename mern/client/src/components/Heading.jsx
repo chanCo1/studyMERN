@@ -11,6 +11,7 @@ const HeadingContainer = styled.div`
   .nav {
     color: #fff;
     text-decoration: none;
+    margin-right: 10px;
   }
 `;
 
@@ -19,7 +20,7 @@ const Heading = () => {
     <HeadingContainer>
       <Navbar bg="dark" expand="lg" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="#home">Community ^_^</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
