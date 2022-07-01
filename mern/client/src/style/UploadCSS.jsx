@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const UploadDiv = styled.div`
   width: 100%;
@@ -76,38 +75,6 @@ const UploadButtonDiv = styled.div`
   }
 `;
 
-const Upload = ({ contentList, setContentList }) => {
-  const [content, setContent] = useState('');
+export { UploadDiv, UploadForm, UploadButtonDiv };
 
-  const onSubmit = () => {
-    let tempArr = [...contentList];
-    tempArr.push(content);
-    setContentList([...tempArr]);
-    setContent('');
-  };
-
-  const onChange = useCallback((e) => {
-    setContent(e.currentTarget.value)
-  }, []);
-
-  return (
-    <UploadDiv>
-      <UploadForm>
-        <label htmlFor="title">제목</label>
-        <input 
-          type="text" 
-          id="title" 
-          value={content} 
-          onChange={onChange} 
-        />
-        <label htmlFor="content">내용</label>
-        <textarea />
-        <UploadButtonDiv>
-          <button onClick={onSubmit}>제출!</button>
-        </UploadButtonDiv>
-      </UploadForm>
-    </UploadDiv>
-  );
-};
-
-export default Upload;
+// import { UploadDiv, UploadForm, UploadButtonDiv } from '../style/UploadCSS';
