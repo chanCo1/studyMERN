@@ -2,29 +2,35 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-const HeadContainer = styled.div`
-  & {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
-    .nav {
-      padding: 0 50px;
-    }
+const HeadingContainer = styled.div`
+
+  .nav {
+    color: #fff;
+    text-decoration: none;
   }
 `;
 
 const Heading = () => {
   return (
-    <HeadContainer>
-      <h1>Hello, React</h1>
-      <nav>
-        <NavLink className='nav' to="/">Home</NavLink>
-        <NavLink className='nav' to="/upload">Upload</NavLink>
-        <NavLink className='nav' to="/list">List</NavLink>
-      </nav>
-    </HeadContainer>
+    <HeadingContainer>
+      <Navbar bg="dark" expand="lg" variant="dark">
+        <Container>
+          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <NavLink className="nav" to="/">Home</NavLink>
+              <NavLink className="nav" to="/upload">Upload</NavLink>
+              <NavLink className="nav" to="/list">List</NavLink>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </HeadingContainer>
   );
 };
 
