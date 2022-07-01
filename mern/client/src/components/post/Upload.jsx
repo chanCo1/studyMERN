@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const UploadDiv = styled.div`
   width: 100%;
@@ -77,16 +79,43 @@ const UploadButtonDiv = styled.div`
 `;
 
 const Upload = ({ contentList, setContentList }) => {
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const onSubmit = () => {
-    let tempArr = [...contentList];
-    tempArr.push(content);
-    setContentList([...tempArr]);
-    setContent('');
+  const navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if(!title || !content) {
+      return alert('모든 항목을 채워주세요!');
+    }
+
+    let body = {
+      title: title,
+      content: content,
+    };
+
+    (async () => {
+      try {
+        const response = await axios.post('/api/post/submit', body);
+        console.log(response);
+
+        if(response.data.success) {
+          alert('글 작성이 완료 되었습니다.');
+          navigate('../');
+        } else {
+          alert('글 작성에 실패 하였습니다.');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
   };
 
-  const onChange = useCallback((e) => {
+  const onChangeTitle = useCallback((e) => {
+    setTitle(e.currentTarget.value)
+  }, []);
+  const onChangeContent = useCallback((e) => {
     setContent(e.currentTarget.value)
   }, []);
 
@@ -97,11 +126,16 @@ const Upload = ({ contentList, setContentList }) => {
         <input 
           type="text" 
           id="title" 
-          value={content} 
-          onChange={onChange} 
+          value={title} 
+          onChange={onChangeTitle} 
         />
         <label htmlFor="content">내용</label>
-        <textarea />
+        <textarea
+          type="text" 
+          id="title" 
+          value={content} 
+          onChange={onChangeContent}
+        />
         <UploadButtonDiv>
           <button onClick={onSubmit}>제출!</button>
         </UploadButtonDiv>

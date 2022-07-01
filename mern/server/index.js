@@ -35,13 +35,16 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(resolve(), '../client/build'));
 });
 
-app.post('/api/test', (req, res, next) => {
-  const CommunityPost = new post({ 
-    title: 'test',
-    content: '테스트입니다.',
-  });
-  CommunityPost.save().then(() => {
-    res.status(200).send('success!');
-  });
-  // res.status(200).json({ success: true });
+app.post('/api/post/submit', (req, res, next) => {
+  const temp = req.body;
+  console.log(temp);
+
+  const CommunityPost = new post(temp);
+  CommunityPost.save()
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch((e) => {
+      res.status(400).json({ success: false });
+    });
 });

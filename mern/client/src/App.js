@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Heading from './components/Heading';
-import List from './components/List';
-import Upload from './components/Upload';
+import List from './components/post/List';
+import Upload from './components/post/Upload';
 
 function App() {
 
@@ -14,8 +14,8 @@ function App() {
       <Heading />
 
       <Routes>
-        <Route path='/' exact />
-        <Route path='/list' element={
+        {/* <Route path='/' exact /> */}
+        <Route path='/' element={
           <List contentList={contentList} setContentList={setContentList} />
           } 
         />

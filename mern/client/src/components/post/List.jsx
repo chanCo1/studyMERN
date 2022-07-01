@@ -5,23 +5,23 @@ const List = ({ contentList, setContentList }) => {
 
   const [text, setText] = useState('');
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    let body = {
-      text: 'Hello',
-    };
+  //   let body = {
+  //     text: 'Hello',
+  //   };
     
-    (async () => {
-      try {
-        const response = await axios.post('/api/test', body);
-        console.log(response);
-        setText(response.data);
+  //   (async () => {
+  //     try {
+  //       const response = await axios.post('/api/test', body);
+  //       console.log(response);
+  //       setText(response.data);
   
-      } catch(e) {
-        console.error(e);
-      }
-    })();
-  }, []);
+  //     } catch(e) {
+  //       console.error(e);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <div>
