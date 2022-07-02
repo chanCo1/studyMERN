@@ -90,3 +90,24 @@ app.post('/api/post/detail', (req, res, next) => {
     }
   })();
 });
+
+/** edit */
+app.post('/api/post/edit', (req, res, next) => {
+  let temp = {
+    title: req.body.title,
+    content: req.body.content,
+  };
+
+  (async () => {
+    try {
+      const response = await Post.updateOne(
+        { postNum: Number(req.body.postNum) },
+        { $set : temp }
+      ).exec();
+      console.log(response);
+      res.status(200).json({ success: true });
+    } catch (e) {
+      res.status(400).json({ success: false });
+    }
+  })();
+});

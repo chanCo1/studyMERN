@@ -20,8 +20,8 @@ const ListItem = styled.div`
   background-color: #fff;
   margin: 5vh 0;
   padding: 20px;
-  box-shadow: 0px 19px 39px rgba(0,0,0,0.03),
-  0px 15px 12px rgba(0,0,0,0.1);
+  box-shadow: 0px 19px 39px rgba(0,0,0,.03),
+  0px 15px 12px rgba(0,0,0,.1);
 
   a {
     color: #000;

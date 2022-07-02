@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 const UploadDiv = styled.div`
   width: 100%;
@@ -24,7 +24,7 @@ const UploadForm = styled.form`
     &:active,
     &:focus {
       outline: none;
-    } 
+    }
   }
 
   textarea {
@@ -62,7 +62,7 @@ const UploadButtonDiv = styled.div`
 
   button {
     border-radius: 15px;
-    padding: 5px 10px;
+    padding: 5px 20px;
     background-color: #000;
     color: #fff;
     border: 1px solid #fff;
@@ -72,9 +72,20 @@ const UploadButtonDiv = styled.div`
       color: #000;
       border: 1px solid #000;
     }
+
+    &.cancle {
+      margin-right: 10px;
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #000;
+
+      &:hover {
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #fff;
+    }
+    }
   }
 `;
 
 export { UploadDiv, UploadForm, UploadButtonDiv };
-
-// import { UploadDiv, UploadForm, UploadButtonDiv } from '../style/UploadCSS';

@@ -5,6 +5,7 @@ import Heading from './components/Heading';
 import List from './components/post/List';
 import Upload from './components/post/Upload';
 import Detail from './components/post/Detail';
+import Edit from './components/post/Edit';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<List />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/post/:postNum" element={<Detail />} />
+        <Route path="/edit/:postNum" element={<Edit />} />
       </Routes>
     </>
   );
