@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Spinner } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -80,10 +80,12 @@ const BtnDiv = styled.div`
 
 const Detail = () => {
 
-  const params = useParams();
-
+  
   const [postInfo, setPostInfo] = useState({});
   const [flag, setFlag] = useState(false);
+  
+  const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(()=> {
     let body = {
@@ -109,6 +111,29 @@ const Detail = () => {
     console.log(postInfo);
   }, [postInfo]);
 
+  const DeleteHandler = useCallback(() => {
+    if(window.confirm('정말로 삭제하시겠습니까?')) {
+      let body = {
+        postNum: params.postNum,
+      };
+  
+      (async () => {
+        try {
+          const response = await axios.post('/api/post/delete',body);
+          console.log(response);
+  
+          if(response.data.success) {
+            alert('게시글이 삭제되었습니다.');
+            navigate('/');
+          }
+        } catch(e) {
+          console.error(e);
+          alert('삭제에 실패하였습니다.');
+        }
+      })();  
+    };
+  }, [params.postNum, navigate]);
+
   return (
     <PostDiv>
       {flag ? (
@@ -121,7 +146,7 @@ const Detail = () => {
             <Link to={`/edit/${postInfo.postNum}`}>
               <button className='edit'>수정</button>
             </Link>
-            <button className='delete'>삭제</button>
+            <button className='delete' onClick={DeleteHandler}>삭제</button>
           </BtnDiv>
         </>
       ) : (

@@ -10,7 +10,7 @@ const Edit = () => {
   const params = useParams();
 
   const [postInfo, setPostInfo] = useState({});
-  const [flag, setFlag] = useState(false);
+  // const [flag, setFlag] = useState(false);
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -30,7 +30,7 @@ const Edit = () => {
 
         if(response.data.success) {
           setPostInfo(response.data.post);
-          setFlag(true);
+          // setFlag(true);
         }
       } catch(e) {
         console.error(e);
@@ -81,7 +81,7 @@ const Edit = () => {
   const onCancle = useCallback((e) => {
     e.preventDefault();
     navigate(-1);
-  });
+  }, [navigate]);
 
   return (
     <UploadDiv>
@@ -101,8 +101,8 @@ const Edit = () => {
           onChange={onChangeContent}
         />
         <UploadButtonDiv>
-          <button className='cancle' onClick={onCancle}>취소</button>
           <button onClick={onSubmit}>수정</button>
+          <button className='cancle' onClick={onCancle}>취소</button>
         </UploadButtonDiv>
       </UploadForm>
     </UploadDiv>

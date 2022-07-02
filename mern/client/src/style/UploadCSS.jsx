@@ -74,7 +74,7 @@ const UploadButtonDiv = styled.div`
     }
 
     &.cancle {
-      margin-right: 10px;
+      margin-left: 10px;
       background-color: #fff;
       color: #000;
       border: 1px solid #000;
