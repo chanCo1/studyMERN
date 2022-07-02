@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const ListDiv = styled.div`
   padding: 1rem 0;
@@ -22,12 +23,17 @@ const ListItem = styled.div`
   box-shadow: 0px 19px 39px rgba(0,0,0,0.03),
   0px 15px 12px rgba(0,0,0,0.1);
 
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
   .title {
     font-weight: bold;
   }
 `;
 
-const List = ({ contentList, setContentList }) => {
+const List = () => {
 
   const [postList, setPostList] = useState([]);
 
@@ -50,10 +56,13 @@ const List = ({ contentList, setContentList }) => {
   return (
     <ListDiv>
         {postList.map((v,i) => {
+          console.log(v);
           return (
             <ListItem key={i}>
-              <h3 className='title'>{v.title}</h3>
-              <p>{v.content}</p>
+              <Link to={`/post/${v.postNum}`}>
+                <h3 className='title'>{v.title}</h3>
+                <p>{v.content}</p>
+              </Link>
             </ListItem>
           );
         })}
