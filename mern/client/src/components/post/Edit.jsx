@@ -90,14 +90,14 @@ const Edit = () => {
         <input 
           type="text" 
           id="title" 
-          value={title} 
+          value={title || ''} 
           onChange={onChangeTitle} 
         />
         <label htmlFor="content">내용</label>
         <textarea
           type="text" 
           id="title" 
-          value={content} 
+          value={content || ''} 
           onChange={onChangeContent}
         />
         <UploadButtonDiv>
