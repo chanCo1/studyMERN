@@ -8,7 +8,7 @@ const PostDiv = styled.div`
   padding: 1rem 0;
   max-width: 756px;
   margin: auto;
-  
+
   @media (max-width: 756px) {
     width: 90%;
   }
@@ -28,8 +28,7 @@ const Post = styled.div`
   height: auto;
   background-color: #fff;
   padding: 30px 20px;
-  box-shadow: 0px 19px 38px rgba(0,0,0,.03),
-  0px 15px 12px rgba(0,0,0,.1);
+  box-shadow: 0px 19px 38px rgba(0, 0, 0, 0.03), 0px 15px 12px rgba(0, 0, 0, 0.1);
 
   h1 {
     font-weight: bold;
@@ -79,29 +78,28 @@ const BtnDiv = styled.div`
 `;
 
 const Detail = () => {
-
-  
   const [postInfo, setPostInfo] = useState({});
+  console.log(postInfo);
   const [flag, setFlag] = useState(false);
-  
+
   const params = useParams();
   const navigate = useNavigate();
 
-  useEffect(()=> {
+  useEffect(() => {
     let body = {
       postNum: params.postNum,
     };
 
     (async () => {
       try {
-        const response = await axios.post('/api/post/detail',body);
+        const response = await axios.post('/api/post/detail', body);
         console.log(response);
 
-        if(response.data.success) {
+        if (response.data.success) {
           setPostInfo(response.data.post);
           setFlag(true);
         }
-      } catch(e) {
+      } catch (e) {
         console.error(e);
       }
     })();
@@ -112,26 +110,26 @@ const Detail = () => {
   }, [postInfo]);
 
   const DeleteHandler = useCallback(() => {
-    if(window.confirm('정말로 삭제하시겠습니까?')) {
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
       let body = {
         postNum: params.postNum,
       };
-  
+
       (async () => {
         try {
-          const response = await axios.post('/api/post/delete',body);
+          const response = await axios.post('/api/post/delete', body);
           console.log(response);
-  
-          if(response.data.success) {
+
+          if (response.data.success) {
             alert('게시글이 삭제되었습니다.');
             navigate('/');
           }
-        } catch(e) {
+        } catch (e) {
           console.error(e);
           alert('삭제에 실패하였습니다.');
         }
-      })();  
-    };
+      })();
+    }
   }, [params.postNum, navigate]);
 
   return (
@@ -140,23 +138,30 @@ const Detail = () => {
         <>
           <Post>
             <h1>{postInfo.title}</h1>
+            {postInfo.image ? 
+              <img 
+                src={`http://localhost:5000/${postInfo.image}`} 
+                alt="" 
+                style={{width: '100%', heigjt: 'auto'}}
+              /> : null}
             <p>{postInfo.content}</p>
           </Post>
           <BtnDiv>
             <Link to={`/edit/${postInfo.postNum}`}>
-              <button className='edit'>수정</button>
+              <button className="edit">수정</button>
             </Link>
-            <button className='delete' onClick={DeleteHandler}>삭제</button>
+            <button className="delete" onClick={DeleteHandler}>
+              삭제
+            </button>
           </BtnDiv>
         </>
       ) : (
         <SpinnerDiv>
-          <Spinner animation='border' role='status'>
-            <span className='visually-hidden'>Loading...</span>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
           </Spinner>
         </SpinnerDiv>
       )}
-      
     </PostDiv>
   );
 };

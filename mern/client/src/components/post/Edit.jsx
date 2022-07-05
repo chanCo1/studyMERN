@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import ImageUpload from './ImageUpload';
 import { UploadDiv, UploadForm, UploadButtonDiv } from '../../style/UploadCSS';
 
 const Edit = () => {
@@ -14,6 +15,8 @@ const Edit = () => {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  
+  const [img, setImg] = useState('');
 
   const navigate = useNavigate();
 
@@ -93,6 +96,9 @@ const Edit = () => {
           value={title || ''} 
           onChange={onChangeTitle} 
         />
+
+        <ImageUpload  />
+
         <label htmlFor="content">내용</label>
         <textarea
           type="text" 

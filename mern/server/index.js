@@ -14,6 +14,9 @@ const __dirname = path.resolve();
 dotenv.config({ path: path.join(__dirname, '../../config.env') });
 
 app.use(express.static(path.join(__dirname, '../client/build')));
+// 이미지 폴더 사용
+app.use('/image', express.static('./image'));
+
 // body-phaser는 express 4.x 버전 이후 부터 내장 모듈이 됨
 app.use(express.text()); // JSON형식의 파라미터 수신 가능
 app.use(express.json()); // TEXT형식의 파라미터 수신 가능

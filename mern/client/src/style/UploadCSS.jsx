@@ -16,10 +16,11 @@ const UploadForm = styled.form`
     margin-top: 10px;
   }
 
-  input {
+  #title {
     border-radius: 10px;
     border: 1px solid #c6c6c6;
     padding: 10px;
+    margin-bottom: 10px;
 
     &:active,
     &:focus {

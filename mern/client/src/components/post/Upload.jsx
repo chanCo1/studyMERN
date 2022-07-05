@@ -3,10 +3,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import { UploadDiv, UploadForm, UploadButtonDiv } from '../../style/UploadCSS';
+import ImageUpload from './ImageUpload';
 
 const Upload = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [img, setImg] = useState('');
 
   const navigate = useNavigate();
 
@@ -19,12 +21,13 @@ const Upload = () => {
     let body = {
       title: title,
       content: content,
+      image: img
     };
 
     (async () => {
       try {
         const response = await axios.post('/api/post/submit', body);
-        console.log(response);
+        console.log(response.data);
 
         if(response.data.success) {
           alert('글 작성이 완료 되었습니다.');
@@ -55,6 +58,9 @@ const Upload = () => {
           value={title} 
           onChange={onChangeTitle} 
         />
+
+        <ImageUpload setImg={setImg} />
+
         <label htmlFor="content">내용</label>
         <textarea
           type="text" 
