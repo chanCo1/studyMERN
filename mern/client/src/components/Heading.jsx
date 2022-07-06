@@ -26,7 +26,7 @@ const Heading = () => {
             <Nav className="me-auto">
               <NavLink className="nav" to="/">Home</NavLink>
               <NavLink className="nav" to="/upload">Upload</NavLink>
-              <NavLink className="nav" to="/">List</NavLink>
+              <NavLink className="nav" to="/login">Login</NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>

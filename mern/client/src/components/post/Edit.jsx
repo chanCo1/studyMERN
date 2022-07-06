@@ -15,8 +15,6 @@ const Edit = () => {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  
-  const [img, setImg] = useState('');
 
   const navigate = useNavigate();
 

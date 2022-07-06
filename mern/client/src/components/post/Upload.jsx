@@ -27,7 +27,6 @@ const Upload = () => {
     (async () => {
       try {
         const response = await axios.post('/api/post/submit', body);
-        console.log(response.data);
 
         if(response.data.success) {
           alert('글 작성이 완료 되었습니다.');
