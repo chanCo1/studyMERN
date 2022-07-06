@@ -25,7 +25,7 @@ router.post('/submit', (req, res, next) => {
 
         Counter.updateOne(
           { name: 'counter' }, 
-          { $inc: { postNum : 1 } },
+          { $inc: { postNum: 1 } },
         ).then(() => {
           res.status(200).json({ success: true });
         });

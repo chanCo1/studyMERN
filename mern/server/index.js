@@ -3,7 +3,8 @@ import path, { resolve } from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-import router from './Router/Post.js';
+import Post from './Router/Post.js';
+import User from './Router/User.js';
 
 const app = express();
 // const port = 5000;
@@ -22,9 +23,14 @@ app.use(express.text()); // JSON형식의 파라미터 수신 가능
 app.use(express.json()); // TEXT형식의 파라미터 수신 가능
 app.use(express.urlencoded({ extended: true }));
 
-// router 가져오기
+/** router 가져오기 */
 // -> 공통적으로 라우팅 규칙이 적용되게 해야함
-app.use('/api/post', router);
+
+// post 가져오기
+app.use('/api/post', Post);
+
+// user 가져오기
+app.use('/api/user', User);
 
 // 서버 구동시
 app.listen(process.env.PORT, async () => {
