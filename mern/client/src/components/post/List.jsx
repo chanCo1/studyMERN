@@ -41,7 +41,7 @@ const List = () => {
     (async () => {
       try {
         const response = await axios.post('/api/post/list');
-        console.log(response);
+        // console.log(response);
 
         if(response.data.success) {
           setPostList([...response.data.postList]);
@@ -56,7 +56,6 @@ const List = () => {
   return (
     <ListDiv>
         {postList.map((v,i) => {
-          console.log(v);
           return (
             <ListItem key={i}>
               <Link to={`/post/${v.postNum}`}>

@@ -63,9 +63,12 @@ const Login = () => {
       <form>
         <label htmlFor="">이메일</label>
         <input type="email" value={email} onChange={onEmailChange} />
+
         <label htmlFor="">비밀번호</label>
         <input type="password" value={password} onChange={onPassChange} />
+
         {errorMsg !== '' && <p>{errorMsg}</p>}
+        
         <button onClick={SignInFunc}>로그인</button>
         <button onClick={OnButtonClick}>회원가입</button>
       </form>
