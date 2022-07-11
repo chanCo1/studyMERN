@@ -26,7 +26,7 @@ function App() {
       if(userInfo !== null) {
         dispatch(loginUser(userInfo.multiFactor.user));
       } else {
-        dispatch(clearUser);
+        dispatch(clearUser());
       }
     })
   }, [dispatch]);
