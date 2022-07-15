@@ -1,5 +1,23 @@
 import React, { memo, useEffect, useState } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+
+import RepleContent from './RepleContent';
+
+const RepleListDiv = styled.div`
+  margin-top: 1rem;
+`;
+
+const RepleAreaDiv = styled.div`
+  padding-bottom: 1rem;
+  max-width: 756px;
+  margin: 0 auto;
+
+  @media (max-width: 756px) {
+    width: 90%;
+  }
+`;
+
 
 const RepleList = memo(({ postId }) => {
 
@@ -26,15 +44,11 @@ const RepleList = memo(({ postId }) => {
   
  
   return (
-    <div>
+    <RepleListDiv>
       {repleList.map((v,i) => {
-        return (
-          <div key={i}>
-            {v.reple}
-          </div>
-        );
+        return <RepleContent reple={v} key={i} />
       })}
-    </div>
+    </RepleListDiv>
   );
 });
 

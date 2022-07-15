@@ -51,4 +51,26 @@ router.post('/getReple', (req, res) => {
   })();
 });
 
+router.post('/edit', (req, res) => {
+  let temp = {
+    postId: req.body.postId,
+    reple: req.body.reple,
+    uid: req.body.uid,
+  };
+
+  (async () => {
+    try {
+      const reponse = await Reple.findOneAndUpdate(
+        {_id: req.body.repleId },
+        {$set: temp}
+      ).exec();
+
+      return res.status(200).json({ success: true })
+    } catch(err) {
+      console.error(err);
+      return res.status(400).json({ success: false });
+    }
+  })();
+})
+
 export default router;

@@ -116,7 +116,9 @@ const Detail = ({ postInfo }) => {
           {uid === postInfo.author.uid && 
             <BtnDiv>
               <Link to={`/edit/${postInfo.postNum}`}>
-                <button className="edit">수정</button>
+                <button className="edit">
+                  수정
+                </button>
               </Link>
               <button className="delete" onClick={DeleteHandler}>
                 삭제
