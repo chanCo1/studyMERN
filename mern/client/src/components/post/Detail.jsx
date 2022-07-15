@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Spinner } from 'react-bootstrap';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const PostDiv = styled.div`
   padding: 1rem 0;
@@ -12,15 +12,6 @@ const PostDiv = styled.div`
   @media (max-width: 756px) {
     width: 90%;
   }
-`;
-
-const SpinnerDiv = styled.div`
-  position: absolute;
-  display: flex;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9;
 `;
 
 const Post = styled.div`
@@ -77,37 +68,12 @@ const BtnDiv = styled.div`
   }
 `;
 
-const Detail = () => {
-  const [postInfo, setPostInfo] = useState({});
-  console.log(postInfo);
-  const [flag, setFlag] = useState(false);
+const Detail = ({ postInfo }) => {
 
   const params = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    let body = {
-      postNum: params.postNum,
-    };
-
-    (async () => {
-      try {
-        const response = await axios.post('/api/post/detail', body);
-        console.log(response);
-
-        if (response.data.success) {
-          setPostInfo(response.data.post);
-          setFlag(true);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, [params]);
-
-  useEffect(() => {
-    console.log(postInfo);
-  }, [postInfo]);
+  const { uid } = useSelector(state => state.user);
 
   const DeleteHandler = useCallback(() => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
@@ -134,10 +100,10 @@ const Detail = () => {
 
   return (
     <PostDiv>
-      {flag ? (
         <>
           <Post>
             <h1>{postInfo.title}</h1>
+            <p>작성자: {postInfo.author.displayName}</p>
             {postInfo.image ? 
               <img 
                 src={`http://localhost:5000/${postInfo.image}`} 
@@ -146,22 +112,18 @@ const Detail = () => {
               /> : null}
             <p>{postInfo.content}</p>
           </Post>
-          <BtnDiv>
-            <Link to={`/edit/${postInfo.postNum}`}>
-              <button className="edit">수정</button>
-            </Link>
-            <button className="delete" onClick={DeleteHandler}>
-              삭제
-            </button>
-          </BtnDiv>
+
+          {uid === postInfo.author.uid && 
+            <BtnDiv>
+              <Link to={`/edit/${postInfo.postNum}`}>
+                <button className="edit">수정</button>
+              </Link>
+              <button className="delete" onClick={DeleteHandler}>
+                삭제
+              </button>
+            </BtnDiv>
+          }
         </>
-      ) : (
-        <SpinnerDiv>
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        </SpinnerDiv>
-      )}
     </PostDiv>
   );
 };

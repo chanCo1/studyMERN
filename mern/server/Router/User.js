@@ -53,4 +53,19 @@ router.post('/register', (req, res, next) => {
   // });
 });
 
+router.post('/namecheck', (req, res, next) => {
+  (async () => {
+    try {
+      const response = await User.findOne({ displayName: req.body.displayName }).exec();
+
+      let check = response ? false : true;
+
+      res.status(200).json({ success: true, check });
+    } catch(err) {
+      console.error(err);
+      res.status(400).json({ success: false });
+    }
+  })();
+});
+
 export default router;

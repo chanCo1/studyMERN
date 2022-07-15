@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 
 import Post from './Router/Post.js';
 import User from './Router/User.js';
+import Reple from './Router/Reple.js';
 
 const app = express();
 // const port = 5000;
@@ -31,6 +32,9 @@ app.use('/api/post', Post);
 
 // user 가져오기
 app.use('/api/user', User);
+
+// reple 가져오기
+app.use('/api/reple', Reple);
 
 // 서버 구동시
 app.listen(process.env.PORT, async () => {

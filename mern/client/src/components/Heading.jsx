@@ -20,7 +20,7 @@ const HeadingContainer = styled.div`
 
 const Heading = () => {
   
-  const { displayName, uid, accessToken } = useSelector((state) => state.user);
+  const { accessToken } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 

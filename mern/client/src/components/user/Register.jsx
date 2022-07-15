@@ -10,21 +10,20 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [pwConfirm, setPwConfirm] = useState('');
-
   const [flag, setFlag] = useState(false);
+  const [nameCheck, setNameCheck] = useState(false);
+  const [nameInfo, setNameInfo] = useState('');
 
   const navigate = useNavigate();
 
   const RegisterFunc = async (e) => {
     e.preventDefault();
 
-    if (!(name && email && password && pwConfirm)) {
-      return alert('모든 값을 채워주세요!');
-    }
+    if (!(name && email && password && pwConfirm)) return alert('모든 값을 채워주세요!');
 
-    if (password !== pwConfirm) {
-      return alert('비밀번호가 다릅니다.');
-    }
+    if (password !== pwConfirm) return alert('비밀번호를 다시 확인해주세요.');
+
+    if (!nameCheck) return alert('닉네임 중복검사를 진행해 주세요.');
 
     setFlag(true);
 
@@ -60,15 +59,44 @@ const Register = () => {
     }
   };
 
+  const NameCheckFunc = useCallback( async (e) => {
+    e.preventDefault();
+
+    if(!name) return alert('닉네임을 입력해주세요.');
+
+    const body = {
+      displayName: name,
+    };
+
+    try {
+      const response = await axios.post('/api/user/namecheck', body);
+
+      if(response.data.success) {
+        if(response.data.check) {
+          setNameCheck(true);
+          setNameInfo('사용 가능한 닉네임 입니다.');
+        } else {
+          setNameInfo('사용 할 수 없는 닉네임 입니다.');
+        }
+      };
+
+    } catch(err) {
+      console.error(err);
+    }
+  }, [name]);
+
   return (
     <LoginDiv>
       <form action="">
-        <label htmlFor="">이름</label>
+        <label htmlFor="">닉네임</label>
         <input
           type="name"
-          value={name}
+          value={name.trim()}
           onChange={(e) => setName(e.currentTarget.value)}
         />
+        {nameInfo}
+        <button onClick={NameCheckFunc}>닉네임 중복검사</button>
+
         <label htmlFor="">이메일</label>
         <input
           type="email"

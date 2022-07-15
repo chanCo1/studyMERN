@@ -31,6 +31,10 @@ const ListItem = styled.div`
   .title {
     font-weight: bold;
   }
+
+  .author {
+    color: #989898;
+  }
 `;
 
 const List = () => {
@@ -41,7 +45,7 @@ const List = () => {
     (async () => {
       try {
         const response = await axios.post('/api/post/list');
-        // console.log(response);
+        console.log(response);
 
         if(response.data.success) {
           setPostList([...response.data.postList]);
@@ -55,16 +59,17 @@ const List = () => {
 
   return (
     <ListDiv>
-        {postList.map((v,i) => {
-          return (
-            <ListItem key={i}>
-              <Link to={`/post/${v.postNum}`}>
-                <h3 className='title'>{v.title}</h3>
-                <p>{v.content}</p>
-              </Link>
-            </ListItem>
-          );
-        })}
+      {postList.map((v,i) => {
+        return (
+          <ListItem key={i}>
+            <Link to={`/post/${v.postNum}`}>
+              <h3 className='title'>{v.title}</h3>
+              <p className='author'>{v.author.displayName}</p>
+              <p>{v.content}</p>
+            </Link>
+          </ListItem>
+        );
+      })}
     </ListDiv>
   );
 };

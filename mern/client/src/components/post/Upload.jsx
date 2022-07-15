@@ -1,17 +1,29 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect, memo } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { UploadDiv, UploadForm, UploadButtonDiv } from '../../style/UploadCSS';
 import ImageUpload from './ImageUpload';
 
-const Upload = () => {
+const Upload = memo(() => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [img, setImg] = useState('');
 
+  // 리덕스의 로그인 정보 가져오기
+  const { uid, accessToken } = useSelector(state => state.user);
+
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if(!accessToken) {
+      alert('로그인 해주세요');
+      navigate('/login');
+    }
+  }, [accessToken, navigate]);
+
+  // 글작성 버튼 클릭시
   const onSubmit = (e) => {
     e.preventDefault();
     if(!title || !content) {
@@ -21,7 +33,8 @@ const Upload = () => {
     let body = {
       title: title,
       content: content,
-      image: img
+      image: img,
+      uid: uid
     };
 
     (async () => {
@@ -73,6 +86,6 @@ const Upload = () => {
       </UploadForm>
     </UploadDiv>
   );
-};
+});
 
 export default Upload;

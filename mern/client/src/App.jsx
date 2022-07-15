@@ -9,7 +9,8 @@ import firebase from './firebase.js';
 import Heading from './components/Heading';
 import List from './components/post/List';
 import Upload from './components/post/Upload';
-import Detail from './components/post/Detail';
+// import Detail from './components/post/Detail';
+import PostArea from './components/post/PostArea';
 import Edit from './components/post/Edit';
 
 /** 로그인 */
@@ -39,7 +40,7 @@ function App() {
         {/* <Route path='/' exact /> */}
         <Route path="/" element={<List />} />
         <Route path="/upload" element={<Upload />} />
-        <Route path="/post/:postNum" element={<Detail />} />
+        <Route path="/post/:postNum" element={<PostArea />} />
         <Route path="/edit/:postNum" element={<Edit />} />
         <Route path="/login" element={<Login />} />
         <Route path='/register' element={<Register />} />
