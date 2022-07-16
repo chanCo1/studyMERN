@@ -148,6 +148,7 @@ const RepleContent = memo((props) => {
     setModalFlag(true);
   }, []);
 
+  // 수정 submit
   const submitHandler = useCallback((e) => {
     e.preventDefault();
 
@@ -165,7 +166,7 @@ const RepleContent = memo((props) => {
         if(!response.data.success) {
           alert('댓글 수정 실패');
         }
-        
+
       } catch(err) {
         console.error(err);
       }
@@ -180,6 +181,32 @@ const RepleContent = memo((props) => {
     setModalFlag(false);
   }, []);
 
+  // 삭제
+  const deleteHandler = useCallback((e) => {
+    e.preventDefault();
+
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      let body = {
+        postId: props.reple.posId,
+        repleId: props.reple._id
+      };
+
+      (async () => {
+        try {
+          const response = await axios.post('/api/reple/delete', body);
+          console.log(response);
+
+          if (response.data.success) {
+            alert('댓글이 삭제되었습니다.');
+          }
+        } catch (e) {
+          console.error(e);
+          alert('삭제에 실패하였습니다.');
+        }
+      })();
+    }
+  }, [props.reple.posId, props.reple._id]);
+
   return (
     <div>
       <RepleContentDiv key={props.key}>
@@ -192,7 +219,7 @@ const RepleContent = memo((props) => {
              {modalFlag && (
                <div className="modalDiv" ref={ref}>
                  <p onClick={onEditClick}>수정</p>
-                 <p className="delete">삭제</p>
+                 <p className="delete" onClick={deleteHandler}>삭제</p>
                </div>
              )}
            </div>

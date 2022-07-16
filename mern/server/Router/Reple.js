@@ -51,6 +51,7 @@ router.post('/getReple', (req, res) => {
   })();
 });
 
+// 댓글 수정
 router.post('/edit', (req, res) => {
   let temp = {
     postId: req.body.postId,
@@ -60,7 +61,7 @@ router.post('/edit', (req, res) => {
 
   (async () => {
     try {
-      const reponse = await Reple.findOneAndUpdate(
+      const response = await Reple.findOneAndUpdate(
         {_id: req.body.repleId },
         {$set: temp}
       ).exec();
@@ -72,5 +73,35 @@ router.post('/edit', (req, res) => {
     }
   })();
 })
+
+// 댓글 삭제
+router.post('/delete', (req, res) => {
+  (async () => {
+    try {
+      await Reple.deleteOne({_id: req.body.repleId }).exec();
+
+      await Post.findOneAndUpdate(
+        { _id: req.body.postId }, 
+        { $inc: { repleNum: -1 } }
+      );
+
+      return res.status(200).json({ success: true });
+
+    } catch(err) {
+      console.error(err);
+      return res.status(400).json({ success: false });
+    }
+  })();
+
+  // Reple.deleteOne({ _id: req.body.repleId }).exec().then(() => {
+  //   Post.findOneAndUpdate(
+  //     { _id: req.body.postId }, 
+  //     { $inc: { repleNum: -1 } }
+  //   )
+  //   .exec().then(() => {
+  //     return res.status(200).json({ success: true });
+  //   })
+  // })
+});
 
 export default router;
