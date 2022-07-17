@@ -78,12 +78,15 @@ router.post('/edit', (req, res) => {
 router.post('/delete', (req, res) => {
   (async () => {
     try {
-      await Reple.deleteOne({_id: req.body.repleId }).exec();
+      const deleteOne = await Reple.deleteOne({_id: req.body.repleId }).exec();
 
-      await Post.findOneAndUpdate(
-        { _id: req.body.postId }, 
-        { $inc: { repleNum: -1 } }
-      );
+      // // 댓글 지우면 댓글번호 -1 하고 싶은데 안됨 ..
+      // if(deleteOne) {
+      //   await Post.findOneAndUpdate(
+      //     { _id: req.body.postId }, 
+      //     { $inc: { repleNum: -1 } }
+      //   );
+      // };
 
       return res.status(200).json({ success: true });
 

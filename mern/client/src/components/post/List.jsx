@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Avatar from 'react-avatar';
 
 const ListDiv = styled.div`
   padding: 1rem 0;
@@ -35,6 +36,21 @@ const ListItem = styled.div`
   .author {
     color: #989898;
   }
+
+  .user {
+    display: flex;
+    color: #c6c6c6;
+
+    p {
+      position: relative;
+      top: 5px;
+    }
+
+    .avatar {
+      border: 1px solid #c6c6c6;
+      margin-right: 10px;
+    }
+  }
 `;
 
 const List = () => {
@@ -64,7 +80,10 @@ const List = () => {
           <ListItem key={i}>
             <Link to={`/post/${v.postNum}`}>
               <h3 className='title'>{v.title}</h3>
-              <p className='author'>{v.author.displayName}</p>
+              <div className='user'>
+                <Avatar className='avatar' size='40' round={true} src={v.author.photoURL} />
+                <p>{v.author.displayName}</p>
+              </div>
               <p>{v.content}</p>
             </Link>
           </ListItem>

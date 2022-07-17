@@ -16,6 +16,7 @@ import Edit from './components/post/Edit';
 /** 로그인 */
 import Login from './components/user/Login';
 import Register from './components/user/Register';
+import Mypage from './components/user/Mypage';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
-      // console.log(userInfo);
+      console.log(userInfo);
       if(userInfo !== null) {
         dispatch(loginUser(userInfo.multiFactor.user));
       } else {
@@ -39,11 +40,16 @@ function App() {
       <Routes>
         {/* <Route path='/' exact /> */}
         <Route path="/" element={<List />} />
+
+        {/* Post, Reple */}
         <Route path="/upload" element={<Upload />} />
         <Route path="/post/:postNum" element={<PostArea />} />
         <Route path="/edit/:postNum" element={<Edit />} />
+
+        {/* User */}
         <Route path="/login" element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/mypage' element={<Mypage />} />
       </Routes>
     </>
   );

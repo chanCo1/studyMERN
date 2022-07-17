@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import Avatar from 'react-avatar';
 
 const RepleContentDiv = styled.div`
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.03), 0px 7.5px 6px rgba(0, 0, 0, 0.03);
@@ -19,6 +20,21 @@ const RepleContentDiv = styled.div`
     margin-bottom: 5px;
     justify-content: space-between;
     align-items: center;
+
+    .user {
+    display: flex;
+    color: #c6c6c6;
+
+    p {
+      position: relative;
+      top: 5px;
+    }
+
+    .avatar {
+      border: 1px solid #c6c6c6;
+      margin-right: 10px;
+    }
+  }
 
     p {
       font-size: 12px;
@@ -209,9 +225,12 @@ const RepleContent = memo((props) => {
 
   return (
     <div>
-      <RepleContentDiv key={props.key}>
+      <RepleContentDiv>
         <div className="author">
-          <p>{props.reple.author.displayName}</p>
+          <div className='user'>
+            <Avatar className='avatar' size='30' round={true} src={props.reple.author.photoURL} />
+            <p>{props.reple.author.displayName}</p>
+          </div>
 
           {props.reple.author.uid === uid && 
             <div className="modalControl">

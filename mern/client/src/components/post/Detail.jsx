@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import Avatar from 'react-avatar';
 
 const PostDiv = styled.div`
   padding: 1rem 0;
@@ -20,11 +21,26 @@ const Post = styled.div`
   background-color: #fff;
   padding: 30px 20px;
   box-shadow: 0px 19px 38px rgba(0, 0, 0, 0.03), 0px 15px 12px rgba(0, 0, 0, 0.1);
-
+  
   h1 {
     font-weight: bold;
   }
 
+  .user {
+    display: flex;
+    color: #c6c6c6;
+
+    p {
+      position: relative;
+      top: 5px;
+    }
+
+    .avatar {
+      border: 1px solid #c6c6c6;
+      margin-right: 10px;
+    }
+  }
+  
   p {
     margin-bottom: 0;
   }
@@ -103,7 +119,10 @@ const Detail = ({ postInfo }) => {
         <>
           <Post>
             <h1>{postInfo.title}</h1>
-            <p>작성자: {postInfo.author.displayName}</p>
+            <div className='user'>
+              <Avatar className='avatar' size='40' round={true} src={postInfo.author.photoURL} />
+              <p>{postInfo.author.displayName}</p>
+            </div>
             {postInfo.image ? 
               <img 
                 src={`http://localhost:5000/${postInfo.image}`} 

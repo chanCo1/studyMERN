@@ -77,9 +77,7 @@ const RepleUpload = memo(({ postId }) => {
         const response = await axios.post('/api/reple/submit', body);
         setReple('');
 
-        if(response.data.success) {
-          alert('댓글 작성이 성공하였습니다.');
-        } else {
+        if(!response.data.success) {
           alert('댓글 작성 실패');
         }
       } catch(err) {

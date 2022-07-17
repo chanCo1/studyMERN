@@ -52,9 +52,16 @@ const Heading = () => {
 
           <Navbar.Collapse className="justify-content-end">
             {accessToken ? (
-              <Navbar.Text className='nav' onClick={LogoutHandler}>
-                Logout
-              </Navbar.Text>
+              <>
+                <Navbar.Text>
+                  <Link className='nav' to={'/mypage'}>
+                    MyPage
+                  </Link>
+                </Navbar.Text>
+                <Navbar.Text className='nav' onClick={LogoutHandler}>
+                  Logout
+                </Navbar.Text>
+              </>
             ) : (
               <Link className="nav" to="/login">
                 Login

@@ -33,6 +33,7 @@ const Register = () => {
 
     await createUser.user.updateProfile({
       displayName: name,
+      photoURL: 'https://kr.object.ncloudstorage.com/react-community/user/profile.png'
     });
 
     console.log(createUser.user);
@@ -40,7 +41,8 @@ const Register = () => {
     const body = {
       email: createUser.user.multiFactor.user.email,
       displayName: createUser.user.multiFactor.user.displayName,
-      uid: createUser.user.multiFactor.user.uid
+      uid: createUser.user.multiFactor.user.uid,
+      photoURL: 'https://kr.object.ncloudstorage.com/react-community/user/profile.png'
     };
 
     try {
@@ -50,6 +52,7 @@ const Register = () => {
       setFlag(false);
   
       if(response.data.success) {
+        alert('회원가입이 완료되었습니다.');
         navigate('/login');
       } else {
         return alert('회원가입이 실패하였습니다.');
