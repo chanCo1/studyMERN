@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Avatar from 'react-avatar';
+
+// 시간 설정
+import moment from 'moment';
+import "moment/locale/ko";  // 나라 설정
 
 const ListDiv = styled.div`
   padding: 1rem 0;
@@ -53,25 +56,15 @@ const ListItem = styled.div`
   }
 `;
 
-const List = () => {
+const List = ({ postList }) => {
 
-  const [postList, setPostList] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.post('/api/post/list');
-        console.log(response);
-
-        if(response.data.success) {
-          setPostList([...response.data.postList]);
-        }
-
-      } catch (e) {
-        console.error(e.message);
-      }
-    })();
-  }, []);
+  const SetTime = (a, b) => {
+    if(a !== b) {
+      return moment(b).format('YYYY년 MMMM Do, hh:mm:ss') + ' 수정됨';
+    } else {
+      return moment(a).format('YYYY년 MMMM Do, hh:mm:ss');
+    }
+  };
 
   return (
     <ListDiv>
@@ -80,11 +73,14 @@ const List = () => {
           <ListItem key={i}>
             <Link to={`/post/${v.postNum}`}>
               <h3 className='title'>{v.title}</h3>
+
               <div className='user'>
                 <Avatar className='avatar' size='40' round={true} src={v.author.photoURL} />
                 <p>{v.author.displayName}</p>
               </div>
+
               <p>{v.content}</p>
+              <p>{SetTime(v.createdAt, v.updatedAt)}</p>
             </Link>
           </ListItem>
         );

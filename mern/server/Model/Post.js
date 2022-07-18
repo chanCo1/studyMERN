@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema({
     type: Number,
     defaut: 0
   }
-}, { collection: 'posts' });
+}, { collection: 'posts', timestamps: true });
 
 const Post = mongoose.model('post', postSchema);
 

@@ -136,6 +136,14 @@ router.post('/image/upload', (req, res, next) => {
   })
 });
 
+// router.post('.image/upload', setUpload('react-community/post'), (req, res, next) => {
+//   console.log(res.req);
+//   res.status(200).json({
+//     success: true,
+//     filePath: res.req.file.location,
+//   });
+// });
+
 
 export default router;
 

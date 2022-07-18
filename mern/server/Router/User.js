@@ -68,4 +68,40 @@ router.post('/namecheck', (req, res, next) => {
   })();
 });
 
+// // image upload
+// router.post('/profile/upload', setUpload('react-community/user'), (req, res, next) => {
+//   console.log(res.req);
+//   res.status(200).json({
+//     success: true,
+//     filePath: res.req.file.location,
+//   });
+// });
+
+// router.post('/image/upload', setUpload('react-community/post'), (req, res, next) => {
+//   console.log(res.req);
+//   res.status(200).json({
+//     success: true,
+//     filePath: res.req.file.location,
+//   });
+// });
+
+router.post('/profile/update', (req, res) => {
+  let temp = {
+    photoURL: req.body.photoURL,
+  };
+
+  (async () => {
+    try {
+      const response = await User.updateOne(
+        { postNum: req.body.uid },
+        { $set : temp }
+      ).exec();
+
+      res.status(200).json({ success: true });
+    } catch (e) {
+      res.status(400).json({ success: false });
+    }
+  })();
+});
+
 export default router;

@@ -24,12 +24,17 @@ const ImageUpload = ({ setImg }) => {
         console.error(e);
       }
     })();
-   };
+  };
 
   return (
     <div>
       {/* accept는 업로드할 파일 유형을 제한할 수 있다. */}
-      <Form.Control type="file" className="shadow-none" accept="image/*" onChange={FileUpload} />
+      <Form.Control
+        type="file"
+        className="shadow-none"
+        accept="image/*"
+        onChange={FileUpload}
+      />
     </div>
   );
 };

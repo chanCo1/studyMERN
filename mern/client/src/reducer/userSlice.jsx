@@ -9,6 +9,7 @@ export const userSlice = createSlice({
     // -> 로그인 할 때 마다 토큰의 값이 바뀌지는 않지만, 사용자의 로그인 여부를 추적하기 위해 사용
     accessToken: '',
     photoURL: '',
+    isLoading: false,
   },
   reducers: {
     loginUser: (state, { payload }) => {
@@ -17,6 +18,7 @@ export const userSlice = createSlice({
         uid: payload.uid,
         accessToken: payload.accessToken,
         photoURL: payload.photoURL,
+        isLoading: true,
       }
       // state.displayName =  payload.displayName;
       // state.uid = payload.uid;
@@ -29,6 +31,8 @@ export const userSlice = createSlice({
         displayName: '',
         uid: '',
         accessToken: '',
+        photoURL: '',
+        isLoading: true,
       }
       // state.displayName = '';
       // state.uid = '';

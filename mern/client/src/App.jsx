@@ -7,7 +7,7 @@ import firebase from './firebase.js';
 
 /** 게시판 */
 import Heading from './components/Heading';
-import List from './components/post/List';
+import MainPage from './components/MainPage';
 import Upload from './components/post/Upload';
 // import Detail from './components/post/Detail';
 import PostArea from './components/post/PostArea';
@@ -39,7 +39,7 @@ function App() {
 
       <Routes>
         {/* <Route path='/' exact /> */}
-        <Route path="/" element={<List />} />
+        <Route path="/" element={<MainPage />} />
 
         {/* Post, Reple */}
         <Route path="/upload" element={<Upload />} />
