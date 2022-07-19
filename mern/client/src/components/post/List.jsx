@@ -28,21 +28,22 @@ const ListItem = styled.div`
   0px 15px 12px rgba(0,0,0,.1);
 
   a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #000;
     text-decoration: none;
   }
 
   .title {
     font-weight: bold;
-  }
-
-  .author {
-    color: #989898;
+    font-size: 30px;
   }
 
   .user {
     display: flex;
-    color: #c6c6c6;
+    color: #949494;
+    margin-bottom: 20px;
 
     p {
       position: relative;
@@ -53,6 +54,10 @@ const ListItem = styled.div`
       border: 1px solid #c6c6c6;
       margin-right: 10px;
     }
+  }
+
+  .time {
+    color: #99999996;
   }
 `;
 
@@ -72,15 +77,17 @@ const List = ({ postList }) => {
         return (
           <ListItem key={i}>
             <Link to={`/post/${v.postNum}`}>
-              <h3 className='title'>{v.title}</h3>
+              <div className='content'>
+                <h3 className='title'>{v.title}</h3>
 
-              <div className='user'>
-                <Avatar className='avatar' size='40' round={true} src={v.author.photoURL} />
-                <p>{v.author.displayName}</p>
+                <div className='user'>
+                  <Avatar className='avatar' size='40' round={true} src={v.author.photoURL} />
+                  <p>{v.author.displayName}</p>
+                </div>
+
+                <p>{v.content}</p>
               </div>
-
-              <p>{v.content}</p>
-              <p>{SetTime(v.createdAt, v.updatedAt)}</p>
+              <p className='time'>{SetTime(v.createdAt, v.updatedAt)}</p>
             </Link>
           </ListItem>
         );

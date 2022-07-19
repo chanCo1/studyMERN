@@ -7,7 +7,6 @@ import { User } from '../Model/User.js';
 
 const router = express.Router();
 
-
 /** submit */
 router.post('/submit', (req, res, next) => {
   const temp = {
@@ -30,13 +29,9 @@ router.post('/submit', (req, res, next) => {
       try {
         await CommunityPost.save();
 
-        Counter.updateOne(
-          { name: 'counter' }, 
-          { $inc: { postNum: 1 } },
-        ).then(() => {
+        Counter.updateOne({ name: 'counter' }, { $inc: { postNum: 1 } }).then(() => {
           res.status(200).json({ success: true });
         });
-
       } catch (e) {
         res.status(400).json({ success: false });
       }
@@ -48,9 +43,25 @@ router.post('/submit', (req, res, next) => {
 
 /** list */
 router.post('/list', (req, res, next) => {
+  let sort = {};
+
+  if (req.body.sort === '최신순') {
+    sort.createdAt = -1;
+  } else {
+    sort.repleNum = -1;
+  }
   (async () => {
     try {
-      const response = await Post.find().populate('author').exec();
+      const response = await Post.find({
+        $or: [
+          { title: { $regex: req.body.searchTerm } },
+          { content: { $regex: req.body.searchTerm } },
+        ],
+      })
+        .populate('author')
+        .sort(sort)
+        .exec();
+
       res.status(200).json({ success: true, postList: response });
     } catch (e) {
       res.status(400).json({ success: false });
@@ -69,7 +80,9 @@ router.post('/list', (req, res, next) => {
 router.post('/detail', (req, res, next) => {
   (async () => {
     try {
-      const response = await Post.findOne({ postNum: Number(req.body.postNum) }).populate('author').exec();
+      const response = await Post.findOne({ postNum: Number(req.body.postNum) })
+        .populate('author')
+        .exec();
       res.status(200).json({ success: true, post: response });
     } catch (e) {
       res.status(400).json({ success: false });
@@ -88,7 +101,7 @@ router.post('/edit', (req, res, next) => {
     try {
       const response = await Post.updateOne(
         { postNum: Number(req.body.postNum) },
-        { $set : temp }
+        { $set: temp }
       ).exec();
       console.log(response);
       res.status(200).json({ success: true });
@@ -110,22 +123,21 @@ router.post('/delete', (req, res, next) => {
   })();
 });
 
-
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, 'image/');
   },
   filename: (req, file, callback) => {
-    callback(null, Date.now() + '-' + file.originalname );
+    callback(null, Date.now() + '-' + file.originalname);
   },
 });
 
-const upload = multer({ storage: storage}).single('file');
+const upload = multer({ storage: storage }).single('file');
 
 // image upload
 router.post('/image/upload', (req, res, next) => {
-  upload(req, res, err => {
-    if(err) {
+  upload(req, res, (err) => {
+    if (err) {
       res.status(400).json({ success: false });
     } else {
       res.status(200).json({
@@ -133,7 +145,7 @@ router.post('/image/upload', (req, res, next) => {
         filePath: res.req.file.path,
       });
     }
-  })
+  });
 });
 
 // router.post('.image/upload', setUpload('react-community/post'), (req, res, next) => {
@@ -144,18 +156,7 @@ router.post('/image/upload', (req, res, next) => {
 //   });
 // });
 
-
 export default router;
-
-
-
-
-
-
-
-
-
-
 
 // post.js
 // // find 중괄호에 조건을 걸 수 있음
@@ -169,7 +170,7 @@ export default router;
 
 //     await CommunityPost.save().then(doc => {
 //       Counter.updateOne(
-//         { name: 'counter' }, 
+//         { name: 'counter' },
 //         { $inc: { postNum: 1 } },
 //       ).then(() => {
 //         res.status(200).json({ success: true });
