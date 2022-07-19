@@ -85,6 +85,7 @@ const BtnDiv = styled.div`
 `;
 
 const Detail = ({ postInfo }) => {
+  // console.log(postInfo.repleNum);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -97,14 +98,23 @@ const Detail = ({ postInfo }) => {
         postNum: params.postNum,
       };
 
+      if(postInfo.repleNum) {
+        alert("댓글있으면 삭제 안됨");
+        return;
+      } else {
+        console.log('ㅋㅋㅋㅋ');
+      }
+
       (async () => {
         try {
-          const response = await axios.post('/api/post/delete', body);
-          console.log(response);
 
-          if (response.data.success) {
+          const response = await axios.post('/api/post/delete', body);
+
+          if(response.data.success) {
             alert('게시글이 삭제되었습니다.');
             navigate('/');
+          } else {
+            alert("게시글 삭제에 실패하였습니다.");
           }
         } catch (e) {
           console.error(e);

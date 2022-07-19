@@ -30,6 +30,7 @@ const PostArea = memo(() => {
     (async () => {
       try {
         const response = await axios.post('/api/post/detail', body);
+        // console.log(response);
 
         if (response.data.success) {
           setPostInfo(response.data.post);

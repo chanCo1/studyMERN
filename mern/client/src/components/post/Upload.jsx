@@ -81,7 +81,7 @@ const Upload = memo(() => {
           onChange={onChangeContent}
         />
         <UploadButtonDiv>
-          <button onClick={onSubmit}>제출!</button>
+          <button onClick={onSubmit}>작성</button>
         </UploadButtonDiv>
       </UploadForm>
     </UploadDiv>

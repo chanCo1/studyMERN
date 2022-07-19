@@ -50,6 +50,8 @@ router.post('/list', (req, res, next) => {
   } else {
     sort.repleNum = -1;
   }
+
+  // async await
   (async () => {
     try {
       const response = await Post.find({
@@ -60,6 +62,8 @@ router.post('/list', (req, res, next) => {
       })
         .populate('author')
         .sort(sort)
+        .skip(req.body.skip)
+        .limit(5)
         .exec();
 
       res.status(200).json({ success: true, postList: response });
@@ -68,12 +72,19 @@ router.post('/list', (req, res, next) => {
     }
   })();
 
-  // Post.find().populate("author").exec().then((doc) => {
-  //   res.status(200).json({ success: true, postList: doc });
-  // }).catch((err) => {
-  //   console.error(err);
-  //   res.status(400).json({ success: false });
-  // });
+  // Post.find()
+  //   .populate('author')
+  //   .sort(sort)
+  //   .skip(req.body.skip)
+  //   .limit(5)
+  //   .exec()
+  //   .then((doc) => {
+  //     res.status(200).json({ success: true, postList: doc });
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //     res.status(400).json({ success: false });
+  //   });
 });
 
 /** detail */

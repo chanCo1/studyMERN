@@ -10,20 +10,60 @@ const MainPage = memo(() => {
   const [sort, setSort] = useState('최신순');
   // 검색
   const [searchTerm, setSearchTerm] = useState("");
+  // 불러오기
+  const [skip, setSkip] = useState(0);
 
-  const getPostList = useCallback(() => {
+  const [loadMore, setLoadMore] = useState(true);
+
+  const getLoadMore = useCallback(() => {
     let body = {
       sort: sort,
       searchTerm: searchTerm,
+      skip: skip,
     };
 
+    // async await
     (async () => {
       try {
         const response = await axios.post('/api/post/list', body);
-        console.log(response);
+
+        if (response.data.success) {
+          setPostList([...postList, ...response.data.postList]);
+          setSkip(skip + response.data.postList.length);
+          
+          if(response.data.postList.length < 5) {
+            setLoadMore(false);
+          }
+        }
+      } catch (e) {
+        console.error(e.message);
+      }
+    })();
+  }, [sort, searchTerm, skip, postList]);
+
+  // 원본
+  const getPostList = useCallback(() => {
+
+    setSkip(0);
+
+    let body = {
+      sort: sort,
+      searchTerm: searchTerm,
+      skip: 0,
+    };
+
+    // async await
+    (async () => {
+      try {
+        const response = await axios.post('/api/post/list', body);
 
         if (response.data.success) {
           setPostList([...response.data.postList]);
+          setSkip(response.data.postList.length);
+          
+          if(response.data.postList.length < 5) {
+            setLoadMore(false);
+          }
         }
       } catch (e) {
         console.error(e.message);
@@ -33,17 +73,17 @@ const MainPage = memo(() => {
 
   useEffect(() => {
     getPostList();
-  }, [getPostList, sort]);
+  }, [sort]);
 
   const onChangeSearch = useCallback((e) => {
     setSearchTerm(e.currentTarget.value);
   }, []);
 
   const searchHandler = useCallback((e) => {
-    // if(searchTerm === "") return;
-
     getPostList();
   }, [getPostList]);
+
+
 
   return (
     <div>
@@ -62,6 +102,8 @@ const MainPage = memo(() => {
       />
 
       <List postList={postList} />
+
+      {loadMore && <button onClick={getLoadMore}>더 불러오기</button>}
     </div>
   );
 });

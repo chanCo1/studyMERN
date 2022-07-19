@@ -8,15 +8,15 @@ const RepleListDiv = styled.div`
   margin-top: 1rem;
 `;
 
-const RepleAreaDiv = styled.div`
-  padding-bottom: 1rem;
-  max-width: 756px;
-  margin: 0 auto;
+// const RepleAreaDiv = styled.div`
+//   padding-bottom: 1rem;
+//   max-width: 756px;
+//   margin: 0 auto;
 
-  @media (max-width: 756px) {
-    width: 90%;
-  }
-`;
+//   @media (max-width: 756px) {
+//     width: 90%;
+//   }
+// `;
 
 
 const RepleList = memo(({ postId }) => {
