@@ -8,7 +8,7 @@ import User from './Router/User.js';
 import Reple from './Router/Reple.js';
 
 const app = express();
-// const port = 5000;
+const port = process.env.PORT || 5000;
 // 프로젝트 폴더 위치
 const __dirname = path.resolve();
 
@@ -37,7 +37,7 @@ app.use('/api/user', User);
 app.use('/api/reple', Reple);
 
 // 서버 구동시
-app.listen(process.env.PORT, async () => {
+app.listen(port, async () => {
   try {
     mongoose.connect(process.env.MONGODB_URL);
     console.log('Connecting MongoDB!!');
@@ -51,9 +51,9 @@ app.listen(process.env.PORT, async () => {
 
 /** 빌드된 리액트 가져오기 */
 app.get('/', (req, res, next) => {
-  res.sendFile(path.join(resolve(), '../client/build'));
+  res.sendFile(path.join(resolve(), '../client/build/index.html'));
 });
 
 app.get('*', (req, res, next) => {
-  res.sendFile(path.join(resolve(), '../client/build'));
+  res.sendFile(path.join(resolve(), '../client/build/index.html'));
 });
